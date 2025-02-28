@@ -27,21 +27,25 @@ extern "C" {
 /*-------------------------- CHIP CONFIG END --------------------------*/
 
 /*-------------------------- ROM/RAM CONFIG BEGIN --------------------------*/
-#define ROM_START              ((uint32_t)0x80000000)
-#define ROM_SIZE               (128)
-#define ROM_END                ((uint32_t)(ROM_START + ROM_SIZE * 1024))
+#define ROM_START ((uint32_t)0x08000000)
+#define ROM_SIZE  (2048)
+#define ROM_END   ((uint32_t)(ROM_START + ROM_SIZE * 1024))
 
-#define RAM_START              (0x20000000)//DTCM_region
-#define RAM_SIZE               (128)
-#define RAM_END                (RAM_START + RAM_SIZE * 1024)
+// #define RAM_START              (0x20000000)//DTCM_region
+// #define RAM_SIZE               (128)
+// #define RAM_END                (RAM_START + RAM_SIZE * 1024)
+
+#define RAM_START (0x24000000) // SRAM_region
+#define RAM_SIZE  (512)
+#define RAM_END   (RAM_START + RAM_SIZE * 1024)
 
 /*-------------------------- ROM/RAM CONFIG END --------------------------*/
 
 /*-------------------------- CLOCK CONFIG BEGIN --------------------------*/
 
-#define BSP_CLOCK_SOURCE                  ("HSE")
-#define BSP_CLOCK_SOURCE_FREQ_MHZ         ((int32_t)0)
-#define BSP_CLOCK_SYSTEM_FREQ_MHZ         ((int32_t)480)
+#define BSP_CLOCK_SOURCE          ("HSE")
+#define BSP_CLOCK_SOURCE_FREQ_MHZ ((int32_t)0)
+#define BSP_CLOCK_SYSTEM_FREQ_MHZ ((int32_t)480)
 
 /*-------------------------- CLOCK CONFIG END --------------------------*/
 
@@ -64,29 +68,29 @@ extern "C" {
  *
  */
 
-#define BSP_UART1_RX_BUFSIZE   256
-#define BSP_UART1_TX_BUFSIZE   256
+#define BSP_UART1_RX_BUFSIZE     256
+#define BSP_UART1_TX_BUFSIZE     256
 
-#define STM32_FLASH_START_ADRESS       ROM_START
-#define STM32_FLASH_SIZE               ROM_SIZE
-#define STM32_FLASH_END_ADDRESS        ROM_END
+#define STM32_FLASH_START_ADRESS ROM_START
+#define STM32_FLASH_SIZE         ROM_SIZE
+#define STM32_FLASH_END_ADDRESS  ROM_END
 
-#define STM32_SRAM_SIZE                RAM_SIZE
-#define STM32_SRAM_START               RAM_START
-#define STM32_SRAM_END                 RAM_END
+#define STM32_SRAM_SIZE          RAM_SIZE
+#define STM32_SRAM_START         RAM_START
+#define STM32_SRAM_END           RAM_END
 
 #if defined(__ARMCC_VERSION)
 extern int Image$$RW_IRAM1$$ZI$$Limit;
-#define HEAP_BEGIN      (&Image$$RW_IRAM1$$ZI$$Limit)
+#define HEAP_BEGIN (&Image$$RW_IRAM1$$ZI$$Limit)
 #elif __ICCARM__
-#pragma section="CSTACK"
-#define HEAP_BEGIN      (__segment_end("CSTACK"))
+#pragma section = "CSTACK"
+#define HEAP_BEGIN (__segment_end("CSTACK"))
 #else
 extern int __bss_end;
-#define HEAP_BEGIN      (&__bss_end)
+#define HEAP_BEGIN (&__bss_end)
 #endif
 
-#define HEAP_END        STM32_SRAM_END
+#define HEAP_END STM32_SRAM_END
 
 void SystemClock_Config(void);
 
