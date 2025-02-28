@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug (J-Link)",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/bsp/stm32/stm32h750vbt6/rt-thread.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "interface": "swd",
+      "device": "STM32H750VBT6",
+      "showDevDebugOutput": "raw",
+      "runToEntryPoint": "main",
+      "configFiles": [
+        "${workspaceFolder}/bsp/stm32/stm32h750vbt6/openocd-jlink.cfg"
+      ],
+      "preLaunchCommands": [
+        "monitor reset halt"
+      ],
+      "postLaunchCommands": [
+        "monitor reset halt",
+        "monitor sleep 200"
+      ]
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/leo/work/rt-thread/bsp/stm32/stm32h750-fk750m1-vbt6/applications",
+      "program": "/Users/leo/work/rt-thread/bsp/stm32/stm32h750-fk750m1-vbt6/applications/build/Debug/outDebug"
+    }
+  ]
+}
